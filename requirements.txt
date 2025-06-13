@@ -1,0 +1,10 @@
+notebook
+jupyter
+ipykernel
+pymongo == 4.13.0
+numpy == 2.2.6
+networkx
+matplotlib
+pandas == 2.3.0
+plotly
+scikit-learn
