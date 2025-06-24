@@ -202,14 +202,14 @@ def plot_graph(graph_competences:GraphCompetences):
     pos = graph_competences.pos
     pos_node_attr = {}
     for node, (x, y) in pos.items():
-        pos_node_attr[node] = (x, y - 0.09)
+        pos_node_attr[node] = (x, y - 0.06)
 
     node_labels = {}
     for n, d in G.nodes(data=True):
         if 'G_dp' in d:
-            node_labels[n] = ('S', d['G_dp'])
+            node_labels[n] = ('Gdp', d['G_dp'])
 
-    edge_labels = {(u, v): d['weight'] for u, v, d in G.edges(data=True)}
+    edge_labels = {(u, v): f"Cdp, {d['weight']}" for u, v, d in G.edges(data=True)}
 
     plt.figure(figsize=(10, 10))  # Adjust the size as needed
 
@@ -231,7 +231,7 @@ def plot_graph(graph_competences:GraphCompetences):
         G,
         pos=pos,
         edge_labels=edge_labels,
-        label_pos=0.21,
+        label_pos=0.28,
         bbox=dict(boxstyle="round,pad=0.5", edgecolor="none", alpha=0.5),
         horizontalalignment='center',
         verticalalignment='center',

@@ -75,7 +75,7 @@ class GraphCompetences:
         for item in raw_graph:
             u = item['u']
             node_name = make_node_name(u['nome'], u['serie_ano'])
-            node_attr = {"G_dp": item['G_dp'], "id": str(u['_id'])}
+            node_attr = {"G_dp": round(item['G_dp'],3), "id": str(u['_id'])}
             nodes.append((node_name, node_attr))
             pos[node_name] = (u['serie_ano'], pos_count[u['serie_ano']])
             pos_count[u['serie_ano']] += 1
