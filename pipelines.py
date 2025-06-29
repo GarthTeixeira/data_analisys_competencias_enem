@@ -178,7 +178,7 @@ def get_turmas_do_aluno_pipeline(nome_escola:str, nome_aluno:str):
                       "input": "$aluno.notas.historico_escolar",
                       "as": "item",
                       "in": {
-                          "disciplina_id": {"$toString":"$$item._id"},
+                          "disciplina_id": {"$toString":"$$item.id"},
                           "nota": "$$item.nota",
                           "disciplina_titulo": "$$item.disciplina_titulo"
                       }
@@ -202,12 +202,18 @@ def get_turmas_do_aluno_pipeline(nome_escola:str, nome_aluno:str):
 
 
 
-def get_arestas_total_pipeline():
+def get_arestas_total_pipeline(ids_turmas:List):
     """
     Pipeline para obter as arestas totais de todas as turmas.
     :return: Lista de dicionários representando o pipeline.
     """
-    return [
+    return [{ 
+        '$match': {
+            'turma': {
+                '$in': ids_turmas
+            }
+        },
+    },
     {
         '$unwind': '$grafos'
     }, {
@@ -226,8 +232,13 @@ def get_arestas_total_pipeline():
     }
 ]
 
-def get_disciplina_por_area_pipeline():
+def get_disciplina_por_area_pipeline(school_name:str):
     return [ 
+        {
+            '$match': {
+                'nome': school_name
+            }
+        },
         {
             '$set': {
                 'numDiscip.LINGUAGENS': {
